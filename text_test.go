@@ -13,53 +13,55 @@ type test struct {
 	out string
 }
 
-func TestNoCase(t *testing.T) {
+func TestBaseCase(t *testing.T) {
 	tests := []test{
-		{text.No, "test", "test"},
-		{text.No, "TEST", "test"},
-		{text.No, "testString", "test string"},
-		{text.No, "testString123", "test string123"},
-		{text.No, "hi-world", "hi world"},
-		{text.No, "hi - world", "hi world"},
-		{text.No, "hi__world", "hi world"},
-		{text.No, "hi_-_world", "hi world"},
-		{text.No, "testString_1_2_3", "test string 1 2 3"},
-		{text.No, "x_256", "x 256"},
-		{text.No, "anHTMLTag", "an html tag"},
-		{text.No, "ID123String", "id123 string"},
-		{text.No, "Id123String", "id123 string"},
-		{text.No, "foo bar123", "foo bar123"},
-		{text.No, "a1bStar", "a1b star"},
-		{text.No, "CONSTANT_CASE ", "constant case"},
-		{text.No, "CONST123_FOO", "const123 foo"},
-		{text.No, "FOO_bar", "foo bar"},
-		{text.No, "dot.case", "dot case"},
-		{text.No, "path/case", "path case"},
-		{text.No, "snake_case", "snake case"},
-		{text.No, "snake_case123", "snake case123"},
-		{text.No, "snake_case_123", "snake case 123"},
-		{text.No, "\"quotes\"", "quotes"},
-		{text.No, "version 0.45.0", "version 0 45 0"},
-		{text.No, "version 0..78..9", "version 0 78 9"},
-		{text.No, "version 4_99/4", "version 4 99 4"},
-		{text.No, "  test  ", "test"},
-		{text.No, "  te+st  ", "te st"},
-		{text.No, "hi-world", "hi world"},
-		{text.No, "hi+world", "hi world"},
-		{text.No, "hi\\world", "hi world"},
-		{text.No, "hi/world", "hi world"},
-		{text.No, "hi*world", "hi world"},
-		{text.No, "hi#world", "hi world"},
-		{text.No, "hi&world", "hi world"},
-		{text.No, "español", "español"},
-		{text.No, "Beyoncé Knowles", "beyoncé knowles"},
-		{text.No, "Iñtërnâtiônàlizætiøn", "iñtërnâtiônàlizætiøn"},
-		{text.No, "something_2014_other", "something 2014 other"},
-		{text.No, "HELLO WORLD!", "hello world"},
-		{text.No, "foo bar!", "foo bar"},
-		{text.No, "A STRING", "a string"},
-		{text.No, "amazon s3 data", "amazon s3 data"},
-		{text.No, "foo_13_bar", "foo 13 bar"},
+		{text.Base, "", ""},
+		{text.Base, "test", "test"},
+		{text.Base, "TEST", "TEST"},
+		{text.Base, "Anki's Trip", "Ankis Trip"},
+		{text.Base, "testString", "test String"},
+		{text.Base, "testString123", "test String123"},
+		{text.Base, "hi-world", "hi world"},
+		{text.Base, "hi - world", "hi world"},
+		{text.Base, "hi__world", "hi world"},
+		{text.Base, "hi_-_world", "hi world"},
+		{text.Base, "testString_1_2_3", "test String 1 2 3"},
+		{text.Base, "x_256", "x 256"},
+		{text.Base, "anHTMLTag", "an HTML Tag"},
+		{text.Base, "ID123String", "ID123 String"},
+		{text.Base, "Id123String", "Id123 String"},
+		{text.Base, "foo bar123", "foo bar123"},
+		{text.Base, "a1bStar", "a1b Star"},
+		{text.Base, "CONSTANT_CASE ", "CONSTANT CASE"},
+		{text.Base, "CONST123_FOO", "CONST123 FOO"},
+		{text.Base, "FOO_bar", "FOO bar"},
+		{text.Base, "dot.case", "dot case"},
+		{text.Base, "path/case", "path case"},
+		{text.Base, "snake_case", "snake case"},
+		{text.Base, "snake_case123", "snake case123"},
+		{text.Base, "snake_case_123", "snake case 123"},
+		{text.Base, "\"quotes\"", "quotes"},
+		{text.Base, "version 0.45.0", "version 0 45 0"},
+		{text.Base, "version 0..78..9", "version 0 78 9"},
+		{text.Base, "version 4_99/4", "version 4 99 4"},
+		{text.Base, "  test  ", "test"},
+		{text.Base, "  te+st  ", "te st"},
+		{text.Base, "hi-world", "hi world"},
+		{text.Base, "hi+world", "hi world"},
+		{text.Base, "hi\\world", "hi world"},
+		{text.Base, "hi/world", "hi world"},
+		{text.Base, "hi*world", "hi world"},
+		{text.Base, "hi#world", "hi world"},
+		{text.Base, "hi&world", "hi world"},
+		{text.Base, "español", "español"},
+		{text.Base, "Beyoncé Knowles", "Beyoncé Knowles"},
+		{text.Base, "Iñtërnâtiônàlizætiøn", "Iñtërnâtiônàlizætiøn"},
+		{text.Base, "something_2014_other", "something 2014 other"},
+		{text.Base, "HELLO WORLD!", "HELLO WORLD"},
+		{text.Base, "foo bar!", "foo bar"},
+		{text.Base, "A STRING", "A STRING"},
+		{text.Base, "amazon s3 data", "amazon s3 data"},
+		{text.Base, "foo_13_bar", "foo 13 bar"},
 	}
 
 	for _, test := range tests {
@@ -69,17 +71,19 @@ func TestNoCase(t *testing.T) {
 
 func TestLowerCase(t *testing.T) {
 	tests := []test{
+		{text.Lower, "", ""},
 		{text.Lower, "TEST", "test"},
 		{text.Lower, "test", "test"},
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.out, test.fn(test.in))
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }
 
 func TestCamelCase(t *testing.T) {
 	tests := []test{
+		{text.Camel, "", ""},
 		{text.Camel, "test", "test"},
 		{text.Camel, "TEST", "test"},
 		{text.Camel, "test string", "testString"},
@@ -94,12 +98,13 @@ func TestCamelCase(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.out, test.fn(test.in))
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }
 
 func TestPascalCase(t *testing.T) {
 	tests := []test{
+		{text.Pascal, "", ""},
 		{text.Pascal, "test", "Test"},
 		{text.Pascal, "TEST", "Test"},
 		{text.Pascal, "test string", "TestString"},
@@ -111,42 +116,45 @@ func TestPascalCase(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.out, test.fn(test.in))
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }
 
 func TestSnakeCase(t *testing.T) {
 	tests := []test{
+		{text.Snake, "", ""},
 		{text.Snake, "test", "test"},
-		{text.Snake, "TEST", "test"},
+		{text.Snake, "TEST", "TEST"},
 		{text.Snake, "test string", "test_string"},
-		{text.Snake, "Test String", "test_string"},
+		{text.Snake, "Test String", "Test_String"},
 		{text.Snake, "dot.case", "dot_case"},
 		{text.Snake, "path/case", "path_case"},
-		{text.Snake, "TestString", "test_string"},
-		{text.Snake, "TestString1_2_3", "test_string1_2_3"},
-		{text.Snake, "My Entrée", "my_entrée"},
+		{text.Snake, "TestString", "Test_String"},
+		{text.Snake, "TestString1_2_3", "Test_String1_2_3"},
+		{text.Snake, "My Entrée", "My_Entrée"},
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.out, test.fn(test.in))
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }
 
 func TestAbbrCase(t *testing.T) {
 	tests := []test{
+		{text.Abbreviation, "", ""},
 		{text.Abbreviation, "test", "t"},
-		{text.Abbreviation, "TEST", "t"},
+		{text.Abbreviation, "TEST", "T"},
 		{text.Abbreviation, "test string", "ts"},
-		{text.Abbreviation, "Test String", "ts"},
+		{text.Abbreviation, "test String", "tS"},
+		{text.Abbreviation, "Test String", "TS"},
 		{text.Abbreviation, "dot.case", "dc"},
 		{text.Abbreviation, "path/case", "pc"},
-		{text.Abbreviation, "TestString", "ts"},
-		{text.Abbreviation, "TestString1_2_3", "ts23"},
-		{text.Abbreviation, "My Entrée", "me"},
+		{text.Abbreviation, "TestString", "TS"},
+		{text.Abbreviation, "TestString1_2_3", "TS23"},
+		{text.Abbreviation, "My Entrée", "ME"},
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.out, test.fn(test.in))
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }

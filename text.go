@@ -5,38 +5,43 @@ import (
 	"unicode"
 )
 
-// No clears the case
-func No(s string) string {
+// Base case
+func Base(s string) string {
 	in := []rune(s)
 	out := []rune{}
 
 	for i := 0; i < len(in); i++ {
 		r := in[i]
 
+		// ignore certain punctuation
+		if r == '\'' {
+			continue
+		}
+
 		// camelCase -> camel case
 		if i >= 1 && unicode.IsUpper(r) && unicode.IsLower(in[i-1]) {
 			out = append(out, ' ')
-			out = append(out, unicode.ToLower(r))
+			out = append(out, r)
 			continue
 		}
 
 		// 123Case -> 123 case
 		if i >= 1 && unicode.IsUpper(r) && unicode.IsDigit(in[i-1]) {
 			out = append(out, ' ')
-			out = append(out, unicode.ToLower(r))
+			out = append(out, r)
 			continue
 		}
 
 		// CAMELCase -> camel case
 		if i >= 1 && i < len(in)-1 && unicode.IsUpper(in[i-1]) && unicode.IsUpper(r) && unicode.IsLower(in[i+1]) && unicode.IsUpper(in[i-2]) {
 			out = append(out, ' ')
-			out = append(out, unicode.ToLower(r))
+			out = append(out, r)
 			continue
 		}
 
 		// letters to lowercase
 		if unicode.IsLetter(r) || unicode.IsDigit(r) {
-			out = append(out, unicode.ToLower(r))
+			out = append(out, r)
 			continue
 		}
 
@@ -65,7 +70,7 @@ func Upper(s string) string {
 
 // Camel fn
 func Camel(s string) string {
-	a := strings.Split(No(s), " ")
+	a := strings.Split(Lower(Base(s)), " ")
 	for i := range a {
 		if i == 0 {
 			continue
@@ -77,7 +82,7 @@ func Camel(s string) string {
 
 // Pascal fn
 func Pascal(s string) string {
-	a := strings.Split(No(s), " ")
+	a := strings.Split(Lower(Base(s)), " ")
 	for i := range a {
 		a[i] = strings.Title(a[i])
 	}
@@ -86,7 +91,7 @@ func Pascal(s string) string {
 
 // Snake fn
 func Snake(s string) string {
-	a := strings.Split(No(s), " ")
+	a := strings.Split(Base(s), " ")
 	return strings.Join(a, "_")
 }
 
@@ -97,12 +102,15 @@ func Title(s string) string {
 
 // Abbreviation case
 func Abbreviation(s string) string {
-	a := strings.Split(No(s), " ")
-	o := make([]byte, len(a))
-	for i := range a {
-		o[i] = a[i][0]
+	a := strings.Split(Base(s), " ")
+	o := ""
+	for _, w := range a {
+		if len(w) == 0 {
+			continue
+		}
+		o += string(w[0])
 	}
-	return string(o)
+	return o
 }
 
 // func Dot(s string) string {
