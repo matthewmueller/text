@@ -3,6 +3,8 @@ package text
 import (
 	"strings"
 	"unicode"
+
+	"github.com/gedex/inflector"
 )
 
 // Base case
@@ -110,6 +112,40 @@ func Abbreviation(s string) string {
 		}
 		o += string(w[0])
 	}
+	return o
+}
+
+// Singular string
+func Singular(s string) string {
+	a := strings.Split(Base(s), " ")
+	last := a[len(a)-1]
+	i := strings.LastIndex(s, last)
+
+	if i < -1 {
+		return inflector.Singularize(s)
+	}
+
+	o := s[:i]
+	o += inflector.Singularize(last)
+	o += s[i+len(last):]
+
+	return o
+}
+
+// Plural string
+func Plural(s string) string {
+	a := strings.Split(Base(s), " ")
+	last := a[len(a)-1]
+	i := strings.LastIndex(s, last)
+
+	if i < -1 {
+		return inflector.Pluralize(s)
+	}
+
+	o := s[:i]
+	o += inflector.Pluralize(last)
+	o += s[i+len(last):]
+
 	return o
 }
 
