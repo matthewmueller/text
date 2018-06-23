@@ -97,6 +97,12 @@ func Snake(s string) string {
 	return strings.Join(a, "_")
 }
 
+// Slug case
+func Slug(s string) string {
+	a := strings.Split(Base(s), " ")
+	return strings.Join(a, "-")
+}
+
 // Title case a string
 func Title(s string) string {
 	return strings.Title(s)

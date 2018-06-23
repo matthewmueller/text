@@ -139,6 +139,25 @@ func TestSnakeCase(t *testing.T) {
 	}
 }
 
+func TestSlugCase(t *testing.T) {
+	tests := []test{
+		{text.Slug, "", ""},
+		{text.Slug, "test", "test"},
+		{text.Slug, "TEST", "TEST"},
+		{text.Slug, "test string", "test-string"},
+		{text.Slug, "Test String", "Test-String"},
+		{text.Slug, "dot.case", "dot-case"},
+		{text.Slug, "path/case", "path-case"},
+		{text.Slug, "TestString", "Test-String"},
+		{text.Slug, "TestString1_2_3", "Test-String1-2-3"},
+		{text.Slug, "My Entrée", "My-Entrée"},
+	}
+
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
+
 func TestAbbrCase(t *testing.T) {
 	tests := []test{
 		{text.Abbreviation, "", ""},
