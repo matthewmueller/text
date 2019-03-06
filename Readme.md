@@ -2,7 +2,7 @@
 
 [![GoDoc](https://godoc.org/github.com/matthewmueller/text?status.svg)](https://godoc.org/github.com/matthewmueller/text)
 
-Go Text utilities. Particularly useful for writing code generators.
+Text utilities for Go. Particularly useful for writing code generators.
 
 ## Install
 
