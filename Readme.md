@@ -23,7 +23,7 @@ go get -u github.com/matthewmueller/text
 | `text.Dot(str)`                                                                               | Test String     | Test.String      | dot.case    |
 | `text.Abbreviate(str)`                                                                        | path/case       | pc               | a           |
 | `text.Singular(str)`                                                                          | My-Entrées      | My-Entrée        | singular    |
-| `text.Plural(str)`                                                                            | My-Entrées      | My-Entrée        | plurals     |
+| `text.Plural(str)`                                                                            | My-Entrée       | My-Entrées       | plurals     |
 | [Need another utility? Open a pull request!](https://github.com/matthewmueller/go-text/pulls) |
 
 ## Thanks
