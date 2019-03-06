@@ -108,8 +108,15 @@ func Title(s string) string {
 	return strings.Title(s)
 }
 
-// Abbreviation case
-func Abbreviation(s string) string {
+// Dot case
+// e.g. "Test String" => "test.string"
+func Dot(s string) string {
+	a := strings.Split(Base(s), " ")
+	return strings.Join(a, ".")
+}
+
+// Abbreviate case
+func Abbreviate(s string) string {
 	a := strings.Split(Base(s), " ")
 	o := ""
 	for _, w := range a {
@@ -154,35 +161,3 @@ func Plural(s string) string {
 
 	return o
 }
-
-// func Dot(s string) string {
-// return s
-// }
-
-// func Swap(s string) string {
-
-// }
-
-// func Path(s string) string {
-
-// }
-
-// Param fn
-// func Param(s string) string {
-
-// }
-
-// Header fn
-// func Header(s string) string {
-
-// }
-
-// Constant fn
-// func Constant(s string) string {
-
-// }
-
-// Sentence fn
-// func Sentence(s string) string {
-
-// }

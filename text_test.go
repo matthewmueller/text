@@ -63,7 +63,6 @@ func TestBaseCase(t *testing.T) {
 		{text.Base, "amazon s3 data", "amazon s3 data"},
 		{text.Base, "foo_13_bar", "foo 13 bar"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
@@ -75,7 +74,6 @@ func TestLowerCase(t *testing.T) {
 		{text.Lower, "TEST", "test"},
 		{text.Lower, "test", "test"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
@@ -96,7 +94,6 @@ func TestCamelCase(t *testing.T) {
 		{text.Camel, "simple éxample", "simpleÉxample"},
 		{text.Camel, "test 1 2 3", "test123"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
@@ -114,7 +111,6 @@ func TestPascalCase(t *testing.T) {
 		{text.Pascal, "TestString", "TestString"},
 		{text.Pascal, "test 1 2 3", "Test123"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
@@ -133,7 +129,6 @@ func TestSnakeCase(t *testing.T) {
 		{text.Snake, "TestString1_2_3", "Test_String1_2_3"},
 		{text.Snake, "My Entrée", "My_Entrée"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
@@ -152,27 +147,80 @@ func TestSlugCase(t *testing.T) {
 		{text.Slug, "TestString1_2_3", "Test-String1-2-3"},
 		{text.Slug, "My Entrée", "My-Entrée"},
 	}
-
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
 }
 
-func TestAbbrCase(t *testing.T) {
+func TestDotCase(t *testing.T) {
 	tests := []test{
-		{text.Abbreviation, "", ""},
-		{text.Abbreviation, "test", "t"},
-		{text.Abbreviation, "TEST", "T"},
-		{text.Abbreviation, "test string", "ts"},
-		{text.Abbreviation, "test String", "tS"},
-		{text.Abbreviation, "Test String", "TS"},
-		{text.Abbreviation, "dot.case", "dc"},
-		{text.Abbreviation, "path/case", "pc"},
-		{text.Abbreviation, "TestString", "TS"},
-		{text.Abbreviation, "TestString1_2_3", "TS23"},
-		{text.Abbreviation, "My Entrée", "ME"},
+		{text.Dot, "test", "test"},
+		{text.Dot, "TEST", "TEST"},
+		{text.Dot, "test string", "test.string"},
+		{text.Dot, "Test String", "Test.String"},
+		{text.Dot, "dot.case", "dot.case"},
+		{text.Dot, "path/case", "path.case"},
+		{text.Dot, "TestString", "Test.String"},
+		{text.Dot, "TestString1_2_3", "Test.String1.2.3"},
+		{text.Dot, "TestString_1_2_3", "Test.String.1.2.3"},
+		{text.Dot, "My Entrée", "My.Entrée"},
+		{text.Dot, "MY STRING", "MY.STRING"},
 	}
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
 
+func TestAbbreviateCase(t *testing.T) {
+	tests := []test{
+		{text.Abbreviate, "", ""},
+		{text.Abbreviate, "test", "t"},
+		{text.Abbreviate, "TEST", "T"},
+		{text.Abbreviate, "test string", "ts"},
+		{text.Abbreviate, "test String", "tS"},
+		{text.Abbreviate, "Test String", "TS"},
+		{text.Abbreviate, "dot.case", "dc"},
+		{text.Abbreviate, "path/case", "pc"},
+		{text.Abbreviate, "TestString", "TS"},
+		{text.Abbreviate, "TestString1_2_3", "TS23"},
+		{text.Abbreviate, "My Entrée", "ME"},
+	}
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
+
+func TestSingular(t *testing.T) {
+	tests := []test{
+		{text.Singular, "", ""},
+		{text.Singular, "tests", "test"},
+		{text.Singular, "TESTS", "TEST"},
+		{text.Singular, "test strings", "test string"},
+		{text.Singular, "Test Strings", "Test String"},
+		{text.Singular, "dot.cases", "dot.case"},
+		{text.Singular, "paths/cases", "paths/case"},
+		{text.Singular, "TestsStrings", "TestsString"},
+		{text.Singular, "TestString1_2_3s", "TestString1_2_3"},
+		{text.Singular, "My-Entrées", "My-Entrée"},
+	}
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
+
+func TestPlural(t *testing.T) {
+	tests := []test{
+		{text.Plural, "", ""},
+		{text.Plural, "test", "tests"},
+		{text.Plural, "TEST", "TESTs"},
+		{text.Plural, "test string", "test strings"},
+		{text.Plural, "Test String", "Test Strings"},
+		{text.Plural, "dot.case", "dot.cases"},
+		{text.Plural, "path/case", "path/cases"},
+		{text.Plural, "TestString", "TestStrings"},
+		{text.Plural, "TestString1_2_3", "TestString1_2_3s"},
+		{text.Plural, "My Entrée", "My Entrées"},
+	}
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
 	}
