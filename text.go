@@ -35,7 +35,7 @@ func Base(s string) string {
 		}
 
 		// CAMELCase -> camel case
-		if i >= 1 && i < len(in)-1 && unicode.IsUpper(in[i-1]) && unicode.IsUpper(r) && unicode.IsLower(in[i+1]) && unicode.IsUpper(in[i-2]) {
+		if i >= 1 && i < len(in)-1 && unicode.IsUpper(in[i-1]) && unicode.IsUpper(r) && unicode.IsLower(in[i+1]) {
 			out = append(out, ' ')
 			out = append(out, r)
 			continue

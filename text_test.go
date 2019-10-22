@@ -62,6 +62,7 @@ func TestBaseCase(t *testing.T) {
 		{text.Base, "A STRING", "A STRING"},
 		{text.Base, "amazon s3 data", "amazon s3 data"},
 		{text.Base, "foo_13_bar", "foo 13 bar"},
+		{text.Base, "EThreader", "E Threader"},
 	}
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
