@@ -115,8 +115,8 @@ func Dot(s string) string {
 	return strings.Join(a, ".")
 }
 
-// Abbreviate case
-func Abbreviate(s string) string {
+// Short case
+func Short(s string) string {
 	a := strings.Split(Base(s), " ")
 	o := ""
 	for _, w := range a {
@@ -126,6 +126,12 @@ func Abbreviate(s string) string {
 		o += string(w[0])
 	}
 	return o
+}
+
+// Slim case
+func Slim(s string) string {
+	a := strings.Split(Base(s), " ")
+	return strings.Join(a, "")
 }
 
 // Singular string

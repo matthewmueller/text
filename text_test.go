@@ -172,19 +172,38 @@ func TestDotCase(t *testing.T) {
 	}
 }
 
-func TestAbbreviateCase(t *testing.T) {
+func TestShortCase(t *testing.T) {
 	tests := []test{
-		{text.Abbreviate, "", ""},
-		{text.Abbreviate, "test", "t"},
-		{text.Abbreviate, "TEST", "T"},
-		{text.Abbreviate, "test string", "ts"},
-		{text.Abbreviate, "test String", "tS"},
-		{text.Abbreviate, "Test String", "TS"},
-		{text.Abbreviate, "dot.case", "dc"},
-		{text.Abbreviate, "path/case", "pc"},
-		{text.Abbreviate, "TestString", "TS"},
-		{text.Abbreviate, "TestString1_2_3", "TS23"},
-		{text.Abbreviate, "My Entrée", "ME"},
+		{text.Short, "", ""},
+		{text.Short, "test", "t"},
+		{text.Short, "TEST", "T"},
+		{text.Short, "test string", "ts"},
+		{text.Short, "test String", "tS"},
+		{text.Short, "Test String", "TS"},
+		{text.Short, "dot.case", "dc"},
+		{text.Short, "path/case", "pc"},
+		{text.Short, "TestString", "TS"},
+		{text.Short, "TestString1_2_3", "TS23"},
+		{text.Short, "My Entrée", "ME"},
+	}
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
+
+func TestSlimCase(t *testing.T) {
+	tests := []test{
+		{text.Slim, "", ""},
+		{text.Slim, "test", "test"},
+		{text.Slim, "TEST", "TEST"},
+		{text.Slim, "test string", "teststring"},
+		{text.Slim, "test String", "testString"},
+		{text.Slim, "Test String", "TestString"},
+		{text.Slim, "dot.case", "dotcase"},
+		{text.Slim, "path/case", "pathcase"},
+		{text.Slim, "TestString", "TestString"},
+		{text.Slim, "TestString1_2_3", "TestString123"},
+		{text.Slim, "My Entrée", "MyEntrée"},
 	}
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
