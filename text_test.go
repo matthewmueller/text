@@ -3,7 +3,7 @@ package text_test
 import (
 	"testing"
 
-	text "github.com/matthewmueller/go-text"
+	"github.com/matthewmueller/text"
 	"github.com/stretchr/testify/assert"
 )
 
