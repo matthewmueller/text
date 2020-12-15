@@ -114,6 +114,12 @@ func Dot(s string) string {
 	return strings.Join(a, ".")
 }
 
+// Path case (e.g. path/case)
+func Path(s string) string {
+	a := strings.Split(Space(s), " ")
+	return strings.Join(a, "/")
+}
+
 // Short case (e.g. sc)
 func Short(s string) string {
 	a := strings.Split(Space(s), " ")

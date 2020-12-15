@@ -234,6 +234,27 @@ func TestDotCase(t *testing.T) {
 	}
 }
 
+func TestPathCase(t *testing.T) {
+	tests := []test{
+		{text.Path, "test", "test"},
+		{text.Path, "TEST", "TEST"},
+		{text.Path, "test string", "test/string"},
+		{text.Path, "Test String", "Test/String"},
+		{text.Path, "dot.case", "dot/case"},
+		{text.Path, "path/case", "path/case"},
+		{text.Path, "TestString", "Test/String"},
+		{text.Path, "TestString1_2_3", "Test/String1/2/3"},
+		{text.Path, "TestString_1_2_3", "Test/String/1/2/3"},
+		{text.Path, "My Entrée", "My/Entrée"},
+		{text.Path, "MY STRING", "MY/STRING"},
+		{text.Path, "Out0", "Out0"},
+		{text.Path, "out0", "out0"},
+	}
+	for _, test := range tests {
+		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
+	}
+}
+
 func TestShortCase(t *testing.T) {
 	tests := []test{
 		{text.Short, "", ""},
