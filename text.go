@@ -7,8 +7,8 @@ import (
 	"github.com/gedex/inflector"
 )
 
-// Base case
-func Base(s string) string {
+// Space case (e.g. Space case)
+func Space(s string) string {
 	in := []rune(s)
 	out := []rune{}
 
@@ -60,19 +60,24 @@ func Base(s string) string {
 	return strings.TrimSpace(string(out))
 }
 
-// Lower fn
-func Lower(s string) string {
-	return strings.ToLower(s)
+// Lower case is just an alias to strings.ToLower
+var Lower = strings.ToLower
+
+// Upper case is just an alias to strings.ToUpper
+var Upper = strings.ToUpper
+
+// Title case (e.g. Title Case)
+func Title(s string) string {
+	a := strings.Split(Lower(Space(s)), " ")
+	for i := range a {
+		a[i] = strings.Title(a[i])
+	}
+	return strings.Join(a, " ")
 }
 
-// Upper fn
-func Upper(s string) string {
-	return strings.ToUpper(s)
-}
-
-// Camel fn
+// Camel case (e.g. camelCase)
 func Camel(s string) string {
-	a := strings.Split(Lower(Base(s)), " ")
+	a := strings.Split(Lower(Space(s)), " ")
 	for i := range a {
 		if i == 0 {
 			continue
@@ -82,42 +87,36 @@ func Camel(s string) string {
 	return strings.Join(a, "")
 }
 
-// Pascal fn
+// Pascal case (e.g. PascalCase)
 func Pascal(s string) string {
-	a := strings.Split(Lower(Base(s)), " ")
+	a := strings.Split(Lower(Space(s)), " ")
 	for i := range a {
 		a[i] = strings.Title(a[i])
 	}
 	return strings.Join(a, "")
 }
 
-// Snake fn
+// Snake case (e.g. snake_case)
 func Snake(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	return strings.Join(a, "_")
 }
 
-// Slug case
+// Slug case (e.g. snake-case)
 func Slug(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	return strings.Join(a, "-")
 }
 
-// Title case a string
-func Title(s string) string {
-	return strings.Title(s)
-}
-
-// Dot case
-// e.g. "Test String" => "test.string"
+// Dot case (e.g. dot.case)
 func Dot(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	return strings.Join(a, ".")
 }
 
-// Short case
+// Short case (e.g. sc)
 func Short(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	o := ""
 	for _, w := range a {
 		if len(w) == 0 {
@@ -128,15 +127,15 @@ func Short(s string) string {
 	return o
 }
 
-// Slim case
+// Slim case (e.g. Slimcase)
 func Slim(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	return strings.Join(a, "")
 }
 
-// Singular string
+// Singular string (e.g. apple)
 func Singular(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	last := a[len(a)-1]
 	i := strings.LastIndex(s, last)
 
@@ -151,9 +150,9 @@ func Singular(s string) string {
 	return o
 }
 
-// Plural string
+// Plural string (e.g. apples)
 func Plural(s string) string {
-	a := strings.Split(Base(s), " ")
+	a := strings.Split(Space(s), " ")
 	last := a[len(a)-1]
 	i := strings.LastIndex(s, last)
 
