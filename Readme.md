@@ -39,7 +39,3 @@ go get -u github.com/matthewmueller/text
 ## Authors
 
 - Matt Mueller [@mattmueller](https://twitter.com/mattmueller)
-
-## License
-
-MIT
