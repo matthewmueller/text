@@ -148,6 +148,9 @@ func TestCamelCase(t *testing.T) {
 		{text.Camel, "test 1 2 3", "test123"},
 		{text.Camel, "Out0", "out0"},
 		{text.Camel, "out0", "out0"},
+		{text.Camel, "Blog", "blog"},
+		{text.Camel, "ASKED", "asked"},
+		{text.Camel, "ASKED_RECIEVED", "askedRecieved"},
 	}
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
@@ -167,6 +170,9 @@ func TestPascalCase(t *testing.T) {
 		{text.Pascal, "test 1 2 3", "Test123"},
 		{text.Pascal, "Out0", "Out0"},
 		{text.Pascal, "out0", "Out0"},
+		{text.Pascal, "Blog", "Blog"},
+		{text.Pascal, "ASKED", "Asked"},
+		{text.Pascal, "ASKED_RECIEVED", "AskedRecieved"},
 	}
 	for _, test := range tests {
 		assert.Equal(t, test.out, test.fn(test.in), "%s != %s", test.in, test.out)
